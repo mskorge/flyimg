@@ -35,8 +35,8 @@ class FaceDetectProcessor extends Processor
         if (count($geometry) == 4) {
             $geometryW = (($geometryW / 100) * $faceZoomReduction) + $geometryW;
             $geometryH = (($geometryH / 100) * $faceZoomReduction) + $geometryH;
-            $geometryX = $geometryX - (($geometryW / 100) * $faceZoomReduction);
-            $geometryY = $geometryY - (($geometryH / 100) * $faceZoomReduction);
+            $geometryX = $geometryX - (($geometryW / 100) * ($faceZoomReduction / 2);
+            $geometryY = $geometryY - (($geometryH / 100) * ($faceZoomReduction / 2);
             [$geometryX, $geometryY, $geometryW, $geometryH] = $geometry;
             $cropCmd = new Command(self::IM_CONVERT_COMMAND);
             $cropCmd->addArgument($inputImage->sourceImagePath());
