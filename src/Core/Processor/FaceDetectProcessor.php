@@ -16,10 +16,11 @@ class FaceDetectProcessor extends Processor
      *
      * @param InputImage $inputImage
      * @param int        $faceCropPosition
+     * @param int        $faceZoomReduction
      *
      * @throws \Exception
      */
-    public function cropFaces(InputImage $inputImage, int $faceCropPosition = 0)
+    public function cropFaces(InputImage $inputImage, int $faceCropPosition = 0, int $faceZoomReduction = 0)
     {
         if (!is_executable(self::FACEDETECT_COMMAND)) {
             return;
@@ -32,6 +33,10 @@ class FaceDetectProcessor extends Processor
         }
         $geometry = explode(" ", $output[$faceCropPosition]);
         if (count($geometry) == 4) {
+            $geometryW = (($geometryW / 100) * $faceZoomReduction) + $geometryW;
+            $geometryH = (($geometryH / 100) * $faceZoomReduction) + $geometryH;
+            $geometryX = $geometryX - (($geometryW / 100) * $faceZoomReduction);
+            $geometryY = $geometryY - (($geometryH / 100) * $faceZoomReduction);
             [$geometryX, $geometryY, $geometryW, $geometryH] = $geometry;
             $cropCmd = new Command(self::IM_CONVERT_COMMAND);
             $cropCmd->addArgument($inputImage->sourceImagePath());
