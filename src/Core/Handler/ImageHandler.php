@@ -128,7 +128,7 @@ class ImageHandler
         }
 
         if ($faceCrop && !$outputImage->isOutputGif()) {
-            $this->faceDetectProcessor->cropFaces($outputImage->getInputImage(), $faceCropPosition);
+            $this->faceDetectProcessor->cropFaces($outputImage->getInputImage(), $faceCropPosition, 20);
         }
     }
 
